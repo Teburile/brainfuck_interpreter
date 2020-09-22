@@ -2,9 +2,9 @@ import sys
 from sys import stdin, stdout
 import numpy as np
 
-bf_nums = np.zeros([0x10000000], dtype=np.int16)
+bf_nums = np.zeros([0x10000000], dtype=np.uint16)
 
-bf_loop_brackets = np.zeros([0x1000000], dtype=np.int16)
+bf_loop_brackets = np.zeros([0x1000000], dtype=np.uint16)
 
 bf_ptr_index = 0x8000000
 
@@ -43,8 +43,9 @@ def bf_in():
 
 def bf_out():
     global bf_ptr_index, bf_nums, bf_execute_index
+
     # print(bf_nums[bf_ptr_index])
-    stdout.write(chr(int(bf_nums[bf_ptr_index])))
+    stdout.write(chr(bf_nums[bf_ptr_index]))
     bf_execute_index += 1
 
 
@@ -103,7 +104,13 @@ def read_bf(bf_command):
 
 
 if __name__ == '__main__':
-    file_name = sys.argv[1]
-    bf_command = open(file_name, 'r').read()
+    bf_command = ''
+    if len(sys.argv) >= 2:
+        file_name = sys.argv[1]
+        bf_command = open(file_name, 'r').read()
+    else:
+        bf_command = input('Please input the brainfuck code\n>')
+
+    print('Executing brainfuck command...')
     read_bf(bf_command)
     execute_bf(bf_command)
