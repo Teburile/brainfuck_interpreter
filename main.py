@@ -104,6 +104,7 @@ def read_bf(bf_command):
 
 
 if __name__ == '__main__':
+    print('Test git\n')
     bf_command = ''
     if len(sys.argv) >= 2:
         file_name = sys.argv[1]
